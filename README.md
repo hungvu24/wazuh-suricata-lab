@@ -3,14 +3,18 @@
 ### 1.Cài đặt Wazuh Manager và Wazuh Agent
 - **Task 1** : Wazuh Server
 Trên terminal monitor thực hiện cài đặt Wazuh Server đóng vai trò trung tâm thu thập , phân tích và xử lý dữ liệu :
-*`sudo apt update`*
-*`sudo apt install curl -y`*
-*`curl -sO https://packages.wazuh.com/4.13/wazuh-install.sh && sudo bash ./wazuh-install.sh -a -p 8080`*
+```
+sudo apt update
+sudo apt install curl -y
+curl -sO https://packages.wazuh.com/4.13/wazuh-install.sh && sudo bash ./wazuh-install.sh -a -p 8080
+```
 Cài đặt xong sẽ xuất hiện tài khoản và mật khẩu để đăng nhập vào Wazuh
 Kiểm tra trạng thái
-*`systemctl status wazuh-dashboard`*
-*`systemctl status wazuh-indexer`*
-*`systemctl status wazuh-manager`*
+```
+systemctl status wazuh-dashboard
+systemctl status wazuh-indexer
+systemctl status wazuh-manager
+```
 ![](wazuh1.png)
 Mở trình duyệt firefox và truy cập đường dẫn : *https://192.168.0.1:8080*
 Tiến hành đăng nhập vào Wazuh bằng tài khoản và mật khẩu đã lấy được
@@ -18,9 +22,11 @@ Tiến hành đăng nhập vào Wazuh bằng tài khoản và mật khẩu đã 
 
 - **Task 2** : Wazuh Agent
 Trên terminal victim thực hiện cài đặt Wazuh Agent để giám sát các điểm cuối (endpoint) như máy chủ hoặc máy tính cá nhân, thu thập thông tin bảo mật (log, thay đổi tệp, cấu hình), phát hiện các hoạt động bất thường, lỗ hổng và mối đe dọa, sau đó gửi dữ liệu này về Wazuh Server để phân tích và xử lý :
-*`sudo apt update`*
-*`sudo apt install wget -y`*
-*`wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.13.1-1_amd64.deb && sudo WAZUH_MANAGER='victim_ip' WAZUH_AGENT_NAME='alice' dpkg -i ./wazuh-agent_4.13.1-1_amd64.deb`*
+```
+sudo apt update
+sudo apt install wget -y
+wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.13.1-1_amd64.deb && sudo WAZUH_MANAGER='victim_ip' WAZUH_AGENT_NAME='alice' dpkg -i ./wazuh-agent_4.13.1-1_amd64.deb
+```
 Kiểm tra phần *server* trong file , đặt lại phần địa chỉ của *Wazuh Manager* :
 ```html
 <client>
@@ -38,11 +44,15 @@ Kiểm tra phần *server* trong file , đặt lại phần địa chỉ của *
 
 ```
 Tiến hành khởi chạy các dịch vụ của Wazuh Agent : 
-*`sudo systemctl daemon-reload`*
-*`sudo systemctl enable wazuh-agent`*
-*`sudo systemctl start wazuh-agent`*
+```
+sudo systemctl daemon-reload
+sudo systemctl enable wazuh-agent
+sudo systemctl start wazuh-agent
+```
 Kiểm tra lại trạng thái của wazuh-agent : 
-*`sudo systemctl status wazuh-agent`*
+```
+sudo systemctl status wazuh-agent
+```
 Mở lại giao diện của Wazuh khi đó sẽ thấy 1 agent đang active 
 ![](wazuh3.png)
 - **Task 3** : Cài đặt suricata
