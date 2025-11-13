@@ -70,7 +70,7 @@ Sau khi thêm rule, thoát và lưu file. Trên máy monitor, chạy các lệnh
 *`sudo systemctl status suricata`*
 - **Task 5** : Tích hợp Wazuh Agent và Suricata
 Trên terminal agent , cấu hình *localfile* để đẩy log về Wazuh
-*`sudo nano /var/ossec/etc/ossec.conf`*
+```sudo nano /var/ossec/etc/ossec.conf```
 Thêm cấu hình như sau 
 ```html
 <localfile>
@@ -80,7 +80,7 @@ Thêm cấu hình như sau
 ```
 
 Khởi động lại wazuh-agent 
-*`sudo systemctl restart wazuh-agent`*
+```sudo systemctl restart wazuh-agent```
 
 - **Task 6** : Thử nghiệm 
 Trên máy monitor và máy attacker, tiến hành chạy các lệnh sau để cài đặt ssh:
@@ -90,11 +90,11 @@ sudo apt install ssh
 sudo systemctl start ssh
 ```
 Sau khi cài đặt, kiểm tra trạng thái hoạt động của ssh trên cả hai máy bằng lệnh sau:
-`sudo systemctl status ssh`
+```sudo systemctl status ssh```
 Tiếp theo, trên máy attacker, chạy các lệnh sau để cài đặt công cụ hydra - giúp tiến hành tấn công brute-force thông tin đăng nhập trên máy monitor:
-`sudo apt install hydra`
+```sudo apt install hydra```
 Tiếp theo, tiến hành tấn công brute-force bằng lệnh sau trên máy attacker:
-`hydra -L users.txt -P passwords.txt -t 16 -f -s 22 -V ssh://172.20.0.10`
+```hydra -L users.txt -P passwords.txt -t 16 -f -s 22 -V ssh://172.20.0.10```
 - **Task 7** : Kiểm tra log Suricata trên Dashboard của  Wazuh
 Mở giao diện Wazuh trên trình duyệt , chọn agent đang active . Chọn Threat hunting => Event 
 ![](wazuh5.png)
