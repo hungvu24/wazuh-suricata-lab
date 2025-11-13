@@ -57,27 +57,43 @@ Mở lại giao diện của Wazuh khi đó sẽ thấy 1 agent đang active
 ![](wazuh3.png)
 - **Task 3** : Cài đặt suricata
 Trên terminal monitor, chạy các lệnh sau để cài đặt software-properties-common - công cụ cung cấp các tiện ích quản lý repositories của apt:
-*`sudo apt update`*
-*`sudo apt install -y software-properties-common`*
+```
+sudo apt update
+sudo apt install -y software-properties-common
+```
 Tiếp theo, trên terminal monitor, chạy lệnh sau để thêm repository OISF:
-*`sudo add-apt-repository ppa:oisf/suricata-stable -y`*
+```
+sudo add-apt-repository ppa:oisf/suricata-stable -y
+```
 Kiểm tra phiên bản Suricata sau khi cài đặt, xác định cài đặt thành công:
-*`suricata --version`*
+```
+suricata --version
+```
 - **Task 4** : Tạo rule Suricata phát hiện tấn công bruteforce
 Trên terminal monitor, chạy lệnh sau để cập nhật và tải folder rules mặc định của Suricata lần đầu tiên:
-*`sudo suricata-update`*
+```
+sudo suricata-update
+```
 Sau khi cài đặt, chạy các lệnh sau để kiểm tra xem folder rules của Suricata được tải chưa:
-*`sudo su`*
-*`cd /var/lib/suricata/`*
+```
+sudo su
+cd /var/lib/suricata/
+```
 Nếu có xuất hiện folder rules là đã thành công.
 Sau khi truy cập folder rules, chạy lệnh sau để mở file chứa rule mặc định của Suricata:
-*`nano suricata.rules`*
+```
+nano suricata.rules
+```
 Thêm rule sau vào đầu file:
-*`alert tcp any any -> any 22 (msg:"BRUTE_FORCE_POSSIBLE"; flow:to_server; threshold:type both, track by_src, count 3, seconds 10; sid:1000102; rev:2;)`*
+```
+alert tcp any any -> any 22 (msg:"BRUTE_FORCE_POSSIBLE"; flow:to_server; threshold:type both, track by_src, count 3, seconds 10; sid:1000102; rev:2;)
+```
 ![](wazuh4.png)
 Sau khi thêm rule, thoát và lưu file. Trên máy monitor, chạy các lệnh sau để khởi động lại và kiểm tra trạng thái Suricata:
-*`sudo systemctl restart suricata`*
-*`sudo systemctl status suricata`*
+```
+sudo systemctl restart suricata
+sudo systemctl status suricata
+```
 - **Task 5** : Tích hợp Wazuh Agent và Suricata
 Trên terminal agent , cấu hình *localfile* để đẩy log về Wazuh
 ```sudo nano /var/ossec/etc/ossec.conf```
